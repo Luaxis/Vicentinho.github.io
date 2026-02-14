@@ -9,20 +9,32 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
     color: white;
     text-align: center;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+
+/* lua */
+.moon {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    background: #f5f3ce;
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255,255,200,0.8);
+    opacity: 0;
+    transition: opacity 2s;
 }
 
 .container {
     padding: 30px 15px;
-    position: relative;
-    z-index: 2;
 }
 
 .card {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.4);
     padding: 20px;
     border-radius: 18px;
     max-width: 320px;
@@ -33,14 +45,6 @@ img {
     width: 100%;
     border-radius: 15px;
     margin-bottom: 15px;
-}
-
-h1 {
-    font-size: 22px;
-}
-
-p {
-    font-size: 16px;
 }
 
 button {
@@ -55,28 +59,17 @@ button {
     width: 100%;
 }
 
-#mensagem {
-    margin-top: 15px;
-    font-size: 18px;
-}
-
-/* Corações */
-.heart {
-    position: fixed;
-    top: -10px;
-    color: pink;
-    font-size: 18px;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh);
-    }
+#dedicatoria {
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 1.6;
+    white-space: pre-line;
 }
 </style>
 </head>
 <body>
+
+<div class="moon" id="moon"></div>
 
 <audio id="musica" loop>
     <source src="musica.mp3" type="audio/mpeg">
@@ -88,57 +81,63 @@ button {
 
         <img src="foto.jpg" alt="Nossa foto">
 
-        <p>
-            Desde que a gente começou a conversar de verdade,
-            minha vida ficou mais leve e mais feliz.
-        </p>
-
-        <p>
-            Seu sorriso, seus olhos e seu jeito
-            são as coisas mais lindas em você.
-        </p>
-
-        <p id="contador"></p>
+        <p>Você é a melhor parte dos meus dias.</p>
 
         <button onclick="iniciar()">Clique aqui</button>
-        <p id="mensagem"></p>
+
+        <div id="dedicatoria"></div>
     </div>
 </div>
 
 <script>
-const dataInicio = new Date("2025-06-01");
 const musica = document.getElementById("musica");
+const moon = document.getElementById("moon");
+const texto = `Bê, meu bem, meu amor…
 
-function atualizarContador() {
-    const hoje = new Date();
-    const diff = hoje - dataInicio;
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("contador").innerText =
-        "Já fazem " + dias + " dias desde que você deixou minha vida mais feliz.";
-}
+Eu queria te dar algo incrível hoje,
+mas mesmo sem presente,
+eu fiz isso com todo carinho só pra você.
+
+Desde que a gente começou a conversar mais,
+você virou uma das pessoas mais importantes da minha vida.
+Seu sorriso, seus olhos e seu jeitinho
+são as coisas mais lindas que eu já vi.
+
+Eu amo nossos momentos juntos,
+as vezes que fui na sua casa,
+a gente assistindo Dexter,
+e até os silêncios quando a gente só fica perto um do outro.
+
+Você me lembra a lua:
+bonita, calma e impossível de não olhar.
+
+Eu só quero continuar vivendo muitos momentos ao seu lado,
+rindo, assistindo coisas juntos,
+e criando memórias com você, meu amor.
+
+Eu te amo muito. 💗`;
 
 function iniciar() {
     musica.play();
-    document.getElementById("mensagem").innerText =
-    "Eu te amo mais do que qualquer presente poderia mostrar ❤️";
+    moon.style.opacity = "1";
+    escreverTexto(texto);
 }
 
-// corações
-function criarCoracao() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerText = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-    document.body.appendChild(heart);
+function escreverTexto(texto) {
+    let i = 0;
+    const velocidade = 35;
+    const area = document.getElementById("dedicatoria");
 
-    setTimeout(() => {
-        heart.remove();
-    }, 8000);
+    function digitar() {
+        if (i < texto.length) {
+            area.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(digitar, velocidade);
+        }
+    }
+
+    digitar();
 }
-
-setInterval(criarCoracao, 400);
-atualizarContador();
 </script>
 
 </body>

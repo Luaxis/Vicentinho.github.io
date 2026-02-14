@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Hadassa ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    padding: 30px 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.card {
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 18px;
+    max-width: 320px;
+    margin: auto;
+}
+
+img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+p {
+    font-size: 16px;
+}
+
+button {
+    background: white;
+    color: #ff4b6e;
+    border: none;
+    padding: 14px 20px;
+    font-size: 17px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+}
+
+#mensagem {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+/* Corações */
+.heart {
+    position: fixed;
+    top: -10px;
+    color: pink;
+    font-size: 18px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+</style>
+</head>
+<body>
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div class="card">
+        <h1>Feliz Dia dos Namorados, Hadassa 💗</h1>
+
+        <img src="foto.jpg" alt="Nossa foto">
+
+        <p>
+            Desde que a gente começou a conversar de verdade,
+            minha vida ficou mais leve e mais feliz.
+        </p>
+
+        <p>
+            Seu sorriso, seus olhos e seu jeito
+            são as coisas mais lindas em você.
+        </p>
+
+        <p id="contador"></p>
+
+        <button onclick="iniciar()">Clique aqui</button>
+        <p id="mensagem"></p>
+    </div>
+</div>
+
+<script>
+const dataInicio = new Date("2025-06-01");
+const musica = document.getElementById("musica");
+
+function atualizarContador() {
+    const hoje = new Date();
+    const diff = hoje - dataInicio;
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("contador").innerText =
+        "Já fazem " + dias + " dias desde que você deixou minha vida mais feliz.";
+}
+
+function iniciar() {
+    musica.play();
+    document.getElementById("mensagem").innerText =
+    "Eu te amo mais do que qualquer presente poderia mostrar ❤️";
+}
+
+// corações
+function criarCoracao() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(criarCoracao, 400);
+atualizarContador();
+</script>
+
+</body>
+</html>
